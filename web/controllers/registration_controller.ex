@@ -7,9 +7,10 @@ defmodule Medium.RegistrationController do
     case Repo.insert(changeset) do
       {:ok, user} ->
         conn
+        |> Medium.Auth.login(user)
         |> redirect(to: "/")
       {:error, changeset} ->
-        render(conn, "page/index.html", changeset: changeset)
+        render(conn, "page/signup.html", changeset: changeset)
     end
   end
 end
