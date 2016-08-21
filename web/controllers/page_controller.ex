@@ -1,7 +1,10 @@
 defmodule Medium.PageController do
   use Medium.Web, :controller
 
-  def index(conn, _params) do
-    render conn, "index.html"
+  def signup(conn, _params) do
+    changeset = Medium.User.changeset(%Medium.User{})
+    conn
+    |> assign(:changeset, changeset)
+    |> render("signup.html")
   end
 end
