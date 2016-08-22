@@ -18,7 +18,9 @@ defmodule Medium.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/signup", PageController, :signup
+    get "/login", PageController, :login
     resources "/registrations", RegistrationController, only: [:create]
+    resources "/sessions", SessionController, only: [:create]
 
     get "/", PostController, :index
     resources "/posts", PostController

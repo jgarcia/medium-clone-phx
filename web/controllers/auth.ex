@@ -1,5 +1,8 @@
 defmodule Medium.Auth do
   import Plug.Conn
+  import Comeonin.Bcrypt, only: [checkpw: 2]
+
+
 
   def init(opts) do
     Keyword.fetch!(opts, :repo)
@@ -16,5 +19,19 @@ defmodule Medium.Auth do
     |> assign(:current_user, user)
     |> put_session(:user_id, user.id)
     |> configure_session(renew: true)
+  end
+
+  def login_by_username_and_password(conn, username, pass, opts) do
+    repo = Keyword.fetch!(opts, :repo)
+    user = repo.get_by(Medium.User, username: username)
+
+    cond do
+      user && checkpw(pass, user.password_hash) ->
+        {:ok, login(conn, user)}
+      user ->
+        {:error, :unauthorized, conn}
+      true ->
+        {:error, :not_found, conn}
+    end
   end
 end
