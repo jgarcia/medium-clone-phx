@@ -1,6 +1,5 @@
 defmodule Medium.SessionController do
   use Medium.Web, :controller
-  alias Medium.User
   alias Medium.Auth
 
   def create(conn, %{"user" => user_params}) do
