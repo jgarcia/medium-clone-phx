@@ -43,6 +43,17 @@
             <li>
               <a href="<%= post_path(@conn, :new) %>">New Post</a>
             </li>
+            <%= if @current_user do %>
+              <li><a href="#"><%= @current_user.name %></a></li>
+              <li><%= link "Sign out", to: "#" %></li>
+            <% else %>
+              <li>
+                <a href="<%= page_path(@conn, :login) %>">Login</a>
+              </li>
+              <li>
+                <a href="<%= page_path(@conn, :signup) %>">Sign Up</a>
+              </li>
+            <% end %>
           </ul>
         </div>
         <!-- /.navbar-collapse -->

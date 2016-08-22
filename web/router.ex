@@ -20,7 +20,7 @@ defmodule Medium.Router do
     get "/signup", PageController, :signup
     get "/login", PageController, :login
     resources "/registrations", RegistrationController, only: [:create]
-    resources "/sessions", SessionController, only: [:create]
+    resources "/sessions", SessionController, only: [:create, :delete]
 
     get "/", PostController, :index
     resources "/posts", PostController
