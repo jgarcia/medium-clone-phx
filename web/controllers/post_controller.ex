@@ -1,10 +1,16 @@
 defmodule Medium.PostController do
   use Medium.Web, :controller
-
   alias Medium.Post
+  import Ecto.Query
 
   def index(conn, _params) do
-    posts = Repo.all(Post)
+    query = from p in Post,
+            order_by: [desc: p.inserted_at],
+            preload: :user,
+            select: p
+
+    posts = Repo.all(query)
+
     render(conn, "index.html", posts: posts)
   end
 
@@ -16,7 +22,8 @@ defmodule Medium.PostController do
   end
 
   def create(conn, %{"post" => post_params}) do
-    changeset = Post.changeset(%Post{}, post_params)
+    changeset = Ecto.build_assoc(conn.assigns.current_user, :posts)
+                |> Post.changeset(post_params)
 
     case Repo.insert(changeset) do
       {:ok, _post} ->

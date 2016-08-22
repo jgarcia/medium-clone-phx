@@ -8,6 +8,7 @@ defmodule Medium.User do
     field :username, :string
     field :password_hash, :string
     field :password, :string, virtual: true
+    has_many :posts, Medium.Post
 
     timestamps()
   end

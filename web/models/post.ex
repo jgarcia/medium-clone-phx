@@ -4,6 +4,7 @@ defmodule Medium.Post do
   schema "posts" do
     field :title, :string
     field :body, :string
+    belongs_to :user, Medium.User
 
     timestamps()
   end

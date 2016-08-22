@@ -9,7 +9,7 @@
           <%= post.body %>
         </h3>
       </a>
-      <p class="post-meta">Posted by <a href="#">Joel G Martinez</a> on September 24, 2014</p>
+      <p class="post-meta">Posted by <a href="#"><%= author_name post %></a> on <%= post.inserted_at %></p>
     </div>
     <hr>
   <% end %>
